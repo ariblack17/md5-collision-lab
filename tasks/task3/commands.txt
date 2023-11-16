@@ -1,0 +1,32 @@
+## create C program
+
+## compile program
+gcc program.c -o program.out
+
+## store hexdump
+hexdump -C -v program.out > hex
+
+## locate array contents
+
+## generate prefix text file
+head -c 32832 program.out > prefix
+
+## generate suffix text file
+tail -c 16472 program.out > suffix
+
+## generate p and q values
+tail -c 128 outp > p
+tail -c 128 outq > q
+
+## build executables
+cat prefix p suffix > res
+chmod +x res
+cat prefix q suffix > tmp
+chmod +x tmp
+
+## run executables
+./res
+./tmp
+
+## verify hashes are same
+md5sum res tmp

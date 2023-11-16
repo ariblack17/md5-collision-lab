@@ -1,0 +1,14 @@
+## run md5collgen
+./md5collgen -p prefix.txt -o output1.bin output2.bin
+
+## check md5sum output
+md5sum output1; md5sum output2
+
+## create suffix file
+
+## concatenate suffix to each binary output file
+cat output1 suffix1.txt > output1
+cat output2 suffix1.txt > output2
+
+## verify hash is still the same
+md5sum output1; md5sum output2

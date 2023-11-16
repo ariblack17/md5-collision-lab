@@ -1,0 +1,15 @@
+## create prefix.txt
+
+## run md5collgen
+./md5collgen -p prefix.txt -o out1.bin out2.bin
+
+## view binary file outputs
+xxd out1.bin | less
+xxd out2.bin | less
+
+## create prefix64.txt
+
+## find differing bytes
+cmp -l out1.bin out2.bin
+
+

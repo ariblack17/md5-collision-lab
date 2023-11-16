@@ -1,0 +1,42 @@
+## create C program
+
+## compile program
+gcc benign.c -o benign.out
+
+## store hexdump
+hexdump -C -v benign.out > hex
+
+## locate array contents
+
+## generate prefix file
+head -c 32832 benign.out > prefix
+
+## generate suffix file
+tail -c +32961 benign.out > tmp
+tail -c +209 tmp > suffix
+
+## generate middle file
+head -c 80 tmp > tmp2
+
+## generate p and q values
+./md5collgen -p prefix -o p q
+
+## verify same hash
+md5sum p q
+
+## extract p and q values
+tail -c 128 p > p2
+tail -c 128 q > q2
+
+## build executables
+cat prefix p2 tmp2 p2 suffix > b
+chmod +x b
+cat prefix q2 tmp2 p2 suffix > m
+chmod +x m
+
+## run executables
+./b
+./m 
+
+## verify same hash
+md5sum m b
